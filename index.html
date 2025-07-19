@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prix de Livraison - YouzinElegancia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-left">
+                <a href="#" class="logo">
+                    <i class="fas fa-gem"></i>
+                    <span>YouzinElegancia</span>
+                </a>
+            </div>
+            
+            <div class="header-right">
+                <button class="lang-toggle" id="langToggle">
+                    <i class="fas fa-globe"></i>
+                    <span id="langText">Français</span>
+                </button>
+                
+                <div class="user-menu">
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span data-key="dashboard">Tableau de bord</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-cog"></i>
+                            <span data-key="settings">Paramètres</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item text-danger">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span data-key="logout">Déconnexion</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 data-key="page-title">Gestion des Prix de Livraison</h1>
+                <p data-key="page-subtitle">Gérez vos tarifs de livraison par wilaya</p>
+            </div>
+
+            <!-- Price Groups Management -->
+            <div class="price-groups-section">
+                <div class="groups-header">
+                    <div class="groups-tabs" id="groupsTabs">
+                        <div class="tab active" data-group="default">
+                            <span data-key="my-prices">Mes Prix</span>
+                            <button class="tab-edit" title="Modifier le nom">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="tab-close" title="Supprimer le groupe">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="btn-add-group" id="addGroupBtn">
+                        <i class="fas fa-plus"></i>
+                        <span data-key="add-group">Ajouter un Groupe</span>
+                    </button>
+                </div>
+
+                <!-- Group Actions -->
+                <div class="group-actions">
+                    <button class="btn-action" id="duplicateGroupBtn">
+                        <i class="fas fa-copy"></i>
+                        <span data-key="duplicate">Dupliquer</span>
+                    </button>
+                    <button class="btn-action" id="exportGroupBtn">
+                        <i class="fas fa-download"></i>
+                        <span data-key="export">Exporter</span>
+                    </button>
+                    <button class="btn-action" id="importGroupBtn">
+                        <i class="fas fa-upload"></i>
+                        <span data-key="import">Importer</span>
+                    </button>
+                    <div class="save-status" id="saveStatus">
+                        <i class="fas fa-check-circle"></i>
+                        <span data-key="saved">Sauvegardé</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="search-filters">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" data-placeholder-key="search-wilaya" placeholder="Rechercher une wilaya...">
+                </div>
+                <div class="filters">
+                    <label class="filter-checkbox">
+                        <input type="checkbox" id="showFreeOnly">
+                        <span data-key="show-free-only">Afficher uniquement les livraisons gratuites</span>
+                    </label>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" id="showIncompleteOnly">
+                        <span data-key="show-incomplete">Afficher les données incomplètes</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Pricing Table -->
+            <div class="pricing-table-container">
+                <table class="pricing-table" id="pricingTable">
+                    <thead>
+                        <tr>
+                            <th data-key="wilaya">Wilaya</th>
+                            <th data-key="price">Prix (DZD)</th>
+                            <th data-key="last-update">Dernière Mise à Jour</th>
+                            <th data-key="status">Statut</th>
+                            <th data-key="actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pricingTableBody">
+                        <!-- Table rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bulk Actions -->
+            <div class="bulk-actions" id="bulkActions" style="display: none;">
+                <div class="bulk-info">
+                    <span id="selectedCount">0</span> <span data-key="selected">sélectionnés</span>
+                </div>
+                <div class="bulk-buttons">
+                    <button class="btn-bulk" id="bulkUpdateBtn">
+                        <i class="fas fa-edit"></i>
+                        <span data-key="bulk-update">Mise à Jour en Lot</span>
+                    </button>
+                    <button class="btn-bulk" id="bulkDeleteBtn">
+                        <i class="fas fa-trash"></i>
+                        <span data-key="bulk-delete">Supprimer</span>
+                    </button>
+                    <button class="btn-bulk" id="clearSelectionBtn">
+                        <i class="fas fa-times"></i>
+                        <span data-key="clear-selection">Effacer la Sélection</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="statistics">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="totalWilayas">48</div>
+                        <div class="stat-label" data-key="total-wilayas">Total Wilayas</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="averagePrice">0</div>
+                        <div class="stat-label" data-key="average-price">Prix Moyen</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="freeDeliveries">0</div>
+                        <div class="stat-label" data-key="free-deliveries">Livraisons Gratuites</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="maxPrice">0</div>
+                        <div class="stat-label" data-key="max-price">Prix Maximum</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Group Modal -->
+    <div class="modal" id="addGroupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-key="add-new-group">Ajouter un Nouveau Groupe de Prix</h3>
+                <button class="modal-close" id="closeAddGroupModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label data-key="group-name">Nom du Groupe:</label>
+                    <input type="text" id="groupNameInput" data-placeholder-key="enter-group-name" placeholder="Entrez le nom du groupe">
+                </div>
+                <div class="form-group">
+                    <label data-key="description">Description (optionnel):</label>
+                    <textarea id="groupDescriptionInput" data-placeholder-key="enter-description" placeholder="Entrez une description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label data-key="copy-prices-from">Copier les prix depuis:</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="copyOption" value="scratch" checked>
+                            <span data-key="start-from-scratch">Commencer à zéro</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="copyOption" value="current">
+                            <span data-key="copy-from-current">Copier du groupe actuel</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="copyOption" value="other">
+                            <span data-key="copy-from-other">Copier d'un autre groupe</span>
+                        </label>
+                    </div>
+                    <select id="sourceGroupSelect" style="display: none;">
+                        <option data-key="select-group">Sélectionner un groupe</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelAddGroup" data-key="cancel">Annuler</button>
+                <button class="btn-primary" id="confirmAddGroup" data-key="create-group">Créer le Groupe</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Update Modal -->
+    <div class="modal" id="bulkUpdateModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-key="bulk-update-prices">Mise à Jour en Lot des Prix</h3>
+                <button class="modal-close" id="closeBulkUpdateModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label data-key="update-type">Type de mise à jour:</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="updateType" value="set" checked>
+                            <span data-key="set-price">Définir le prix</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="updateType" value="increase">
+                            <span data-key="increase-by">Augmenter de</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="updateType" value="decrease">
+                            <span data-key="decrease-by">Diminuer de</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="updateType" value="percentage">
+                            <span data-key="percentage-change">Changement en pourcentage</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label data-key="value">Valeur:</label>
+                    <input type="number" id="bulkUpdateValue" min="0" step="0.01">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelBulkUpdate" data-key="cancel">Annuler</button>
+                <button class="btn-primary" id="confirmBulkUpdate" data-key="apply">Appliquer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Keyboard Shortcuts Help -->
+    <div class="shortcuts-help" id="shortcutsHelp">
+        <div class="shortcuts-content">
+            <h4 data-key="keyboard-shortcuts">Raccourcis Clavier</h4>
+            <div class="shortcuts-grid">
+                <div class="shortcut-item">
+                    <kbd>Ctrl + S</kbd>
+                    <span data-key="save">Sauvegarder</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Ctrl + N</kbd>
+                    <span data-key="new-group">Nouveau Groupe</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Ctrl + F</kbd>
+                    <span data-key="search">Rechercher</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>F1</kbd>
+                    <span data-key="help">Aide</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Escape</kbd>
+                    <span data-key="cancel">Annuler</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Tab</kbd>
+                    <span data-key="next-field">Champ Suivant</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+  </html>
