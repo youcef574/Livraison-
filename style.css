@@ -820,6 +820,11 @@ body {
     .btn-secondary {
         flex: none;
     }
+    
+    /* Show last update column on larger screens */
+    .last-update {
+        display: table-cell !important;
+    }
 }
 
 @media (min-width: 1024px) {
@@ -830,6 +835,14 @@ body {
     .pricing-table th,
     .pricing-table td {
         padding: 1rem;
+    }
+}
+
+/* Hide last update column on mobile and small screens */
+@media (max-width: 639px) {
+    .pricing-table th:nth-child(3),
+    .pricing-table td:nth-child(3) {
+        display: none;
     }
 }
 
