@@ -184,16 +184,67 @@ async function loadWilayas() {
 
 // Generate fallback wilaya data
 function generateFallbackWilayas() {
-    const fallbackWilayas = [];
-    for (let i = 1; i <= 58; i++) {
-        fallbackWilayas.push({
-            id: i,
-            name_fr: `Wilaya ${i}`,
-            name_en: `Wilaya ${i}`,
-            code: String(i).padStart(2, '0')
-        });
-    }
-    return fallbackWilayas;
+    // Real Algerian wilayas as fallback
+    return [
+        { id: 1, name_fr: "Adrar", name_en: "Adrar", code: "01" },
+        { id: 2, name_fr: "Chlef", name_en: "Chlef", code: "02" },
+        { id: 3, name_fr: "Laghouat", name_en: "Laghouat", code: "03" },
+        { id: 4, name_fr: "Oum El Bouaghi", name_en: "Oum El Bouaghi", code: "04" },
+        { id: 5, name_fr: "Batna", name_en: "Batna", code: "05" },
+        { id: 6, name_fr: "Béjaïa", name_en: "Bejaia", code: "06" },
+        { id: 7, name_fr: "Biskra", name_en: "Biskra", code: "07" },
+        { id: 8, name_fr: "Béchar", name_en: "Bechar", code: "08" },
+        { id: 9, name_fr: "Blida", name_en: "Blida", code: "09" },
+        { id: 10, name_fr: "Bouira", name_en: "Bouira", code: "10" },
+        { id: 11, name_fr: "Tamanrasset", name_en: "Tamanrasset", code: "11" },
+        { id: 12, name_fr: "Tébessa", name_en: "Tebessa", code: "12" },
+        { id: 13, name_fr: "Tlemcen", name_en: "Tlemcen", code: "13" },
+        { id: 14, name_fr: "Tiaret", name_en: "Tiaret", code: "14" },
+        { id: 15, name_fr: "Tizi Ouzou", name_en: "Tizi Ouzou", code: "15" },
+        { id: 16, name_fr: "Alger", name_en: "Algiers", code: "16" },
+        { id: 17, name_fr: "Djelfa", name_en: "Djelfa", code: "17" },
+        { id: 18, name_fr: "Jijel", name_en: "Jijel", code: "18" },
+        { id: 19, name_fr: "Sétif", name_en: "Setif", code: "19" },
+        { id: 20, name_fr: "Saïda", name_en: "Saida", code: "20" },
+        { id: 21, name_fr: "Skikda", name_en: "Skikda", code: "21" },
+        { id: 22, name_fr: "Sidi Bel Abbès", name_en: "Sidi Bel Abbes", code: "22" },
+        { id: 23, name_fr: "Annaba", name_en: "Annaba", code: "23" },
+        { id: 24, name_fr: "Guelma", name_en: "Guelma", code: "24" },
+        { id: 25, name_fr: "Constantine", name_en: "Constantine", code: "25" },
+        { id: 26, name_fr: "Médéa", name_en: "Medea", code: "26" },
+        { id: 27, name_fr: "Mostaganem", name_en: "Mostaganem", code: "27" },
+        { id: 28, name_fr: "M'Sila", name_en: "M'Sila", code: "28" },
+        { id: 29, name_fr: "Mascara", name_en: "Mascara", code: "29" },
+        { id: 30, name_fr: "Ouargla", name_en: "Ouargla", code: "30" },
+        { id: 31, name_fr: "Oran", name_en: "Oran", code: "31" },
+        { id: 32, name_fr: "El Bayadh", name_en: "El Bayadh", code: "32" },
+        { id: 33, name_fr: "Illizi", name_en: "Illizi", code: "33" },
+        { id: 34, name_fr: "Bordj Bou Arréridj", name_en: "Bordj Bou Arreridj", code: "34" },
+        { id: 35, name_fr: "Boumerdès", name_en: "Boumerdes", code: "35" },
+        { id: 36, name_fr: "El Tarf", name_en: "El Tarf", code: "36" },
+        { id: 37, name_fr: "Tindouf", name_en: "Tindouf", code: "37" },
+        { id: 38, name_fr: "Tissemsilt", name_en: "Tissemsilt", code: "38" },
+        { id: 39, name_fr: "El Oued", name_en: "El Oued", code: "39" },
+        { id: 40, name_fr: "Khenchela", name_en: "Khenchela", code: "40" },
+        { id: 41, name_fr: "Souk Ahras", name_en: "Souk Ahras", code: "41" },
+        { id: 42, name_fr: "Tipaza", name_en: "Tipaza", code: "42" },
+        { id: 43, name_fr: "Mila", name_en: "Mila", code: "43" },
+        { id: 44, name_fr: "Aïn Defla", name_en: "Ain Defla", code: "44" },
+        { id: 45, name_fr: "Naâma", name_en: "Naama", code: "45" },
+        { id: 46, name_fr: "Aïn Témouchent", name_en: "Ain Temouchent", code: "46" },
+        { id: 47, name_fr: "Ghardaïa", name_en: "Ghardaia", code: "47" },
+        { id: 48, name_fr: "Relizane", name_en: "Relizane", code: "48" },
+        { id: 49, name_fr: "Timimoun", name_en: "Timimoun", code: "49" },
+        { id: 50, name_fr: "Bordj Badji Mokhtar", name_en: "Bordj Badji Mokhtar", code: "50" },
+        { id: 51, name_fr: "Ouled Djellal", name_en: "Ouled Djellal", code: "51" },
+        { id: 52, name_fr: "Béni Abbès", name_en: "Beni Abbes", code: "52" },
+        { id: 53, name_fr: "In Salah", name_en: "In Salah", code: "53" },
+        { id: 54, name_fr: "In Guezzam", name_en: "In Guezzam", code: "54" },
+        { id: 55, name_fr: "Touggourt", name_en: "Touggourt", code: "55" },
+        { id: 56, name_fr: "Djanet", name_en: "Djanet", code: "56" },
+        { id: 57, name_fr: "El M'Ghair", name_en: "El M'Ghair", code: "57" },
+        { id: 58, name_fr: "El Meniaa", name_en: "El Meniaa", code: "58" }
+    ];
 }
 
 // Initialize language system
